@@ -83,7 +83,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         }
 
         /// <summary>
-        /// Marca o item como cancelado.
+        /// Cancel the item.
         /// </summary>
         public void CancelItem()
         {
