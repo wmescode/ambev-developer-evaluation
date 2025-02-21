@@ -12,12 +12,7 @@ namespace Ambev.DeveloperEvaluation.ORM.MongoDB
         {
             _configuration = configuration;
             var connectionString = _configuration.GetConnectionString("MongoDBConnection");
-            var mongoUrl = MongoUrl.Create(connectionString);
-            var mongoClientSettings = new MongoClientSettings
-            {
-                Server = mongoUrl.Server,
-                Credential = MongoCredential.CreateCredential(mongoUrl.DatabaseName, _configuration["MongoDB:Username"], _configuration["MongoDB:Password"])
-            };
+            var mongoUrl = MongoUrl.Create(connectionString);     
             var mongoClient = new MongoClient(mongoUrl);
             _database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
         }
