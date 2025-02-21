@@ -1,15 +1,16 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Ambev.DeveloperEvaluation.Domain.Repositories.Sales;
+using Ambev.DeveloperEvaluation.ORM.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ambev.DeveloperEvaluation.ORM.Repositories
+namespace Ambev.DeveloperEvaluation.ORM.PostgreSQL.Repositories
 {
     public class SaleRepository : ISaleRepository
     {
         private readonly DefaultContext _context;
-        public SaleRepository(DefaultContext context) 
+        public SaleRepository(DefaultContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<Sale> CreateSaleAsync(Sale sale, CancellationToken cancellationToken = default)
@@ -50,7 +51,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
 
         public async Task<Sale?> GetSaleByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _context.Sales.Include(a=>a.Items).FirstOrDefaultAsync(a=> a.Id == id, cancellationToken);
+            return await _context.Sales.Include(a => a.Items).FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
         public async Task<List<SaleItem>?> GetSaleItemsBySaleId(Guid saleId, CancellationToken cancellationToken = default)
@@ -61,7 +62,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public IQueryable<Sale> Query()
         {
             return _context.Sales
-                .Include(a=>a.Items)
+                .Include(a => a.Items)
                 .AsNoTracking();
         }
     }

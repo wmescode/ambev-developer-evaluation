@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace Ambev.DeveloperEvaluation.ORM;
+namespace Ambev.DeveloperEvaluation.ORM.PostgreSQL;
 
 public class DefaultContext : DbContext
 {
@@ -33,7 +33,7 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
             .Build();
 
         var builder = new DbContextOptionsBuilder<DefaultContext>();
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = configuration.GetConnectionString("PostgreSqlDefaultConnection");
 
         builder.UseNpgsql(
                connectionString,
