@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+using Ambev.DeveloperEvaluation.Domain.Events.SaleEvents;
 using Ambev.DeveloperEvaluation.Domain.Repositories.Sales;
 using Ambev.DeveloperEvaluation.Domain.Services.External;
 using AutoMapper;
@@ -14,19 +15,22 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         private readonly IBranchExternalService _branchExternalService;
         private readonly ICustomerExternalService _customerExternalService;
         private readonly IProductExternalService _productExternalService;
+        private readonly IMediator _mediator;
 
 
         public CreateSaleHandler(ISaleRepository saleRepository, 
                                  IMapper mapper,
                                  IBranchExternalService branchExternalService,
                                  ICustomerExternalService customerExternalService,
-                                 IProductExternalService productExternalService)
+                                 IProductExternalService productExternalService,
+                                 IMediator mediator)
         {
             _saleRepository = saleRepository;
             _mapper = mapper;
             _branchExternalService = branchExternalService;
             _customerExternalService = customerExternalService;
             _productExternalService = productExternalService;
+            _mediator = mediator;
         }
 
         public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
@@ -55,6 +59,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             }
 
             var createdSale = await _saleRepository.CreateSaleAsync(sale, cancellationToken);
+
+            await _mediator.Publish(new SaleCreatedEvent(createdSale), cancellationToken);
+
             var result = _mapper.Map<CreateSaleResult>(createdSale);
             return result;
         }

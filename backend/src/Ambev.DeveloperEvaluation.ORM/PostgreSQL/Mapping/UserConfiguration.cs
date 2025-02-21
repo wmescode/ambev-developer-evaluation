@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Text.RegularExpressions;
 
-namespace Ambev.DeveloperEvaluation.ORM.Mapping;
+namespace Ambev.DeveloperEvaluation.ORM.PostgreSQL.Mapping;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

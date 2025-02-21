@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ambev.DeveloperEvaluation.ORM.Mapping
+namespace Ambev.DeveloperEvaluation.ORM.PostgreSQL.Mapping
 {
     public class SaleItemMapping : IEntityTypeConfiguration<SaleItem>
     {

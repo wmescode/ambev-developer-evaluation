@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Common;
-using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetAllSales;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
 using Ambev.DeveloperEvaluation.WebApi.Common;
@@ -29,6 +28,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
                 Data = result
             });
         }
+
         [HttpGet]
         public async Task<IActionResult> GetSaleById([FromQuery] GetSaleByIdQuery request, CancellationToken cancellationToken)
         {
@@ -45,7 +45,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllSales([FromQuery] GetAllSalesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);            
 
             return OkPaginated(result);
         }
